@@ -1,10 +1,58 @@
 import React from 'react'
 
-import { ExampleComponent } from 'pwa-navigator'
 import 'pwa-navigator/dist/index.css'
+import { RouteProvider, Navigator, Route } from "pwa-navigator";
+import MatchesScreen from './screens/MatchesScreen';
+import PublicMatchesScreen from './screens/PublicMatchesScreen';
+import MatchScreen from './screens/MatchScreen';
+import VideoScreen from './screens/VideoScreen';
+import MusicScreen from './screens/MusicScreen';
+import TournamentsScreen from './screens/TournamentsScreen';
+import FeedScreen from './screens/FeedScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return (<RouteProvider>
+    <Navigator>
+      <Route
+        url="app/matches"
+        component={MatchesScreen}
+      >
+        <Route
+          url="public"
+          component={PublicMatchesScreen}
+          childrenTransition="stack"
+        >
+          <Route
+            url=":uuid"
+            component={MatchScreen}
+            childrenTransition="stack"
+          >
+            <Route
+              url="video/:videoUuid"
+              component={VideoScreen}
+            />
+            <Route
+              url="music/:musicUuid"
+              component={MusicScreen}
+            />
+          </Route>
+        </Route>
+        <Route
+          url="tournaments"
+          component={TournamentsScreen}
+        />
+      </Route>
+      <Route
+        url="app/feed"
+        component={FeedScreen}
+      />
+      <Route
+        url="app/profile"
+        component={ProfileScreen}
+      />
+    </Navigator>
+  </RouteProvider>);
 }
 
 export default App

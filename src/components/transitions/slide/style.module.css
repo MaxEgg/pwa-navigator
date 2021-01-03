@@ -1,0 +1,4 @@
+.transition {
+  transition: left 0.2s;
+  transition-timing-function: ease-out;
+}
