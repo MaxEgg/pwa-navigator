@@ -1,58 +1,23 @@
 import React from 'react'
 
 import 'pwa-navigator/dist/index.css'
-import { RouteProvider, Navigator, Route } from "pwa-navigator";
-import MatchesScreen from './screens/MatchesScreen';
-import PublicMatchesScreen from './screens/PublicMatchesScreen';
-import MatchScreen from './screens/MatchScreen';
-import VideoScreen from './screens/VideoScreen';
-import MusicScreen from './screens/MusicScreen';
-import TournamentsScreen from './screens/TournamentsScreen';
-import FeedScreen from './screens/FeedScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import { RouteProvider } from "pwa-navigator";
+import Auth from './navGroups/Auth';
+import Application from './navGroups/Application';
+import LoginProvider, { LoginContext } from './providers/LoginProvider';
 
 const App = () => {
-  return (<RouteProvider>
-    <Navigator>
-      <Route
-        url="app/matches"
-        component={MatchesScreen}
-      >
-        <Route
-          url="public"
-          component={PublicMatchesScreen}
-          childrenTransition="stack"
-        >
-          <Route
-            url=":uuid"
-            component={MatchScreen}
-            childrenTransition="stack"
-          >
-            <Route
-              url="video/:videoUuid"
-              component={VideoScreen}
-            />
-            <Route
-              url="music/:musicUuid"
-              component={MusicScreen}
-            />
-          </Route>
-        </Route>
-        <Route
-          url="tournaments"
-          component={TournamentsScreen}
-        />
-      </Route>
-      <Route
-        url="app/feed"
-        component={FeedScreen}
-      />
-      <Route
-        url="app/profile"
-        component={ProfileScreen}
-      />
-    </Navigator>
-  </RouteProvider>);
+  return (
+    <LoginProvider>
+      <LoginContext.Consumer>
+        {({ loggedIn }) => (
+          <RouteProvider>
+            {!loggedIn ? <Auth /> : <Application />}
+          </RouteProvider>
+        )}
+      </LoginContext.Consumer>
+    </LoginProvider>
+  );
 }
 
 export default App

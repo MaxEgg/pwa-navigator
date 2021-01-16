@@ -22,3 +22,58 @@ code {
   height: 100%;
   background-color: brown;
 }
+
+.pwa-navigator-root {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.screen {
+  border: 1px solid #fff;
+  flex-direction: column;
+  display: flex;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 10px;
+  flex: 1;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+button,
+input {
+  margin: 5px 0;
+}
+
+.content {
+  flex-direction: column;
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  height: 250px;
+  margin: 2px;
+  position: relative;
+  border: 1px solid #000;
+}
+
+img {
+  object-fit: contain;
+
+  height: 250px;
+}

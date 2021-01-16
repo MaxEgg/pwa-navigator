@@ -4,11 +4,13 @@
     opacity: 0;
     width: 90%;
     left: 5%;
+    font-size: 90%;
   }
   50% {
     width: 100%;
     left: 0%;
     top: 0%;
+    font-size: 100%;
   }
 
   100% {

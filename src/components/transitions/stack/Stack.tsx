@@ -33,7 +33,6 @@ class Stack implements ITransistion {
         paths[path].classList.add(baseStyles.visible);
 
         if (transiton) {
-            console.log("styles.=", styles.stack);
             paths[path].style.animation = `${styles.stack} 0.5s ease-out`;
         }
     }

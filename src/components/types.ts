@@ -16,11 +16,13 @@ export interface INavigator {
   children: ReactElement<IRoute> | ReactElement<IRoute>[]
   childrenTransition?: childrenTransition
   parent?: string
+  accesable?: boolean
 }
 
 export interface IRouteComponent {
   params?: { [key: string]: string }
   toParent?: () => void
+  setPath: (path: string) => void
 }
 
 export interface IRoute {
@@ -29,7 +31,9 @@ export interface IRoute {
   component: ComponentType<IRouteComponent>
   children?: ReactElement<IRoute> | ReactElement<IRoute>[]
   params?: { [key: string]: string }
-  isActive: boolean
+  isActive?: boolean
+  default?: boolean
+  entryPoint?: boolean
 }
 
 export type RouteChild = {

@@ -19,35 +19,47 @@ class Slide implements ITransistion {
         root?.addEventListener("touchstart", this.touchstart, { passive: true });
         root?.addEventListener("touchmove", this.touchmove, { passive: true });
         root?.addEventListener("touchend", this.touchend, { passive: true });
-        root?.addEventListener("transitionend", this.transitionend, { passive: true });
         this.onTransitionEnd = onTransitionEnd;
-        this.startPosition();
+
+        setTimeout(() => {
+            this.startPosition(false);
+        }, 0);
     }
 
     to = (path: string, transiton: boolean) => {
-        const paths = this.paths;
-        const position = paths[path].offsetLeft;
-        this.activePath = path;
+        setTimeout(() => {
+            if (path !== this.activePath) {
+                const paths = this.paths;
+                const position = paths[path].offsetLeft;
+                this.activePath = path;
 
-        if (position !== 0) {
-            if (!transiton) {
+                if (!transiton) {
+                    for (const path in paths) {
+                        paths[path].classList.remove(styles.transition);
+                    }
+                }
                 for (const path in paths) {
-                    paths[path].classList.remove(styles.transition);
+                    paths[path].style.left = paths[path].offsetLeft - position + "px";
                 }
             }
-            for (const path in paths) {
-                paths[path].style.left = paths[path].offsetLeft - position + "px";
+            for (const path in this.paths) {
+                this.paths[path].classList.add(globalStyles.visible);
             }
-        }
-        for (const path in paths) {
-            paths[path].classList.add(globalStyles.visible);
-        }
+        }, 0)
     }
 
-    startPosition = () => {
+    startPosition = (transiton: boolean) => {
         const paths = this.paths;
         const root = this.root;
         const navigatorViewportWidth = root?.clientWidth || 0;
+
+        for (const path in paths) {
+            if (!transiton) {
+                paths[path].classList.remove(styles.transition);
+            } else {
+                paths[path].classList.add(styles.transition);
+            }
+        }
 
         let index = 0;
         for (const path in paths) {
@@ -55,11 +67,19 @@ class Slide implements ITransistion {
         }
     }
 
-    endPosition = () => {
+    endPosition = (transiton: boolean) => {
         if (this.root) {
             const paths = this.paths;
             const root = this.root;
             const navigatorViewportWidth = root.clientWidth || 0;
+
+            for (const path in paths) {
+                if (!transiton) {
+                    paths[path].classList.remove(styles.transition);
+                } else {
+                    paths[path].classList.add(styles.transition);
+                }
+            }
 
             let index = Object.keys(paths).length - 1;
             for (const path in paths) {
@@ -99,10 +119,10 @@ class Slide implements ITransistion {
                     const currentPosition = parseFloat(paths[path].style.left);
 
                     if (index === 0 && currentPosition >= 0 && distance <= 0) {
-                        this.startPosition();
+                        this.startPosition(true);
                         break;
-                    } else if (index === 0 && currentPosition <= -((rootWidth * (lenght - 1))) && distance >= 0) {
-                        this.endPosition();
+                    } else if (index === 0 && currentPosition <= -(rootWidth * (lenght - 1)) && distance >= 0) {
+                        this.endPosition(true);
                         break;
                     } else {
                         paths[path].style.left = slideRoutes[path] - distance + "px";
@@ -133,7 +153,6 @@ class Slide implements ITransistion {
                 newPosition = Math.ceil(currentPosition / rootWidth) * rootWidth;
             }
 
-
             paths[path].style.left = newPosition + "px"
 
             if (newPosition === 0 && currentPosition !== newPosition && path !== this.activePath) {
@@ -141,10 +160,6 @@ class Slide implements ITransistion {
                 this.onTransitionEnd(this.activePath);
             }
         }
-    }
-
-    transitionend = () => {
-
     }
 }
 
