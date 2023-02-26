@@ -10,7 +10,7 @@ interface IProps {
 }
 const LoginProvider = ({ children }: IProps) => {
     const [loggedIn, setLocalLoggedIn] = useState<boolean>(localStorage.getItem("loggedIn") === "true" ? true : false);
-    console.log("logged in", loggedIn, localStorage.getItem("loggedIn"));
+    
     const setLoggedIn = (value: boolean) => {
         localStorage.setItem("loggedIn", value.toString());
         setLocalLoggedIn(value);

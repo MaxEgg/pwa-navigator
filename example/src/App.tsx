@@ -1,6 +1,5 @@
 import React from 'react'
-
-import 'pwa-navigator/dist/index.css'
+import 'pwa-navigator/dist/style.css'
 import { RouteProvider } from "pwa-navigator";
 import Auth from './navGroups/Auth';
 import Application from './navGroups/Application';

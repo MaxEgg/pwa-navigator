@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RouteContext } from "./RouteProvider";
 import { ILink } from "./types";
 
@@ -9,11 +9,11 @@ const Link = ({ to, children, className, activeClassName = "selected", isActive 
     const { setPath, path } = useContext(RouteContext);
     const [active, setActive] = useState(false);
 
-    const handleOnClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleOnClick = useCallback((event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
         setPath(to);
-    }
+    }, [])
 
     useEffect(() => {
         if (isActive) {
@@ -27,7 +27,7 @@ const Link = ({ to, children, className, activeClassName = "selected", isActive 
 
     return <a href={to} onClick={handleOnClick} className={classname} >
         {children}
-    </a >
+    </a>
 }
 
 export default Link;

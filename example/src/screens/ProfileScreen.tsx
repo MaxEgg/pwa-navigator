@@ -1,3 +1,4 @@
+import { Link } from "pwa-navigator";
 import React, { useCallback, useContext } from "react";
 import { IRouteComponent } from "../../../dist";
 import { LoginContext } from "../providers/LoginProvider";
@@ -10,8 +11,17 @@ const ProfileScreen = ({ setPath }: IRouteComponent) => {
         setLoggedIn(false)
     }, [setLoggedIn, setPath]);
 
-
-    return <div>Profile<button onClick={handleLogout}>LOGOUT</button></div>
+    return (
+      <div className='screen'>
+        <div className='title'>Profile</div>
+        <div className='content'>
+          <Link to='/public'>Public</Link>
+          <Link to='/tournaments'>Tournaments</Link>
+          <div>Profile</div>
+          <button onClick={handleLogout}>LOGOUT</button>
+        </div>
+      </div>
+    )
 }
 
 export default ProfileScreen;

@@ -1,0 +1,60 @@
+
+html {
+  background-color: darkslategray;
+  color: grey;
+  display: flex; 
+  flex: 1;
+  height: 100%;
+  overscroll-behavior: none;
+
+  body {
+    display:flex; 
+    flex: 1;
+    margin: 0;
+
+    #root {
+      display:flex; 
+      flex: 1;
+    }
+  } 
+} 
+
+$bottomMenuHeight: 7vh;
+
+.applicationContainer{
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  flex: 1;
+  overflow: hidden;
+
+  .applicationContent {
+    display: flex;
+    max-height: calc(100%  - #{$bottomMenuHeight}); 
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .public-matches-screen{
+      background-color: rgb(2, 92, 92);
+    }
+  }
+
+  .bottomMenu {
+    display: flex;    
+    background-color: darkgoldenrod;
+    height: $bottomMenuHeight;
+    width: 100%;
+    position: fixed;
+    bottom: 0 ;
+    left: 0; 
+  }
+
+  .item {
+    display:flex; 
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+}
+

@@ -6,13 +6,12 @@ import styles from "./style.module.css";
 
 const Route = forwardRef<HTMLDivElement, IRoute>(({ component: Component, children, url, params, childrenTransition, isActive }: IRoute, ref) => {
     const { toParent, setPath } = useContext(RouteContext);
-
-    const classname = `${styles.route}  ${isActive ? styles.active : ''} pwa-navigator-route`;
-
+    const classname = `${styles.route} ${isActive ? styles.active : ''} pwa-navigator-route`;
+    
     return (
         <Fragment>
             <div className={classname} ref={ref}>
-                <Component params={params} toParent={toParent} setPath={setPath} />
+                <Component  {...{params, toParent, setPath}} />
             </div>
             {children && <Navigator parent={url} childrenTransition={childrenTransition}>{children}</Navigator>}
         </Fragment>

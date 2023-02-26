@@ -35,7 +35,6 @@ const Navigator = ({ children, childrenTransition = "slide", parent = "", accesa
     }, [setPaths]);
 
     useEffect(() => {
-        console.log("oath ", path);
         if (localPaths.current[path]) {
             if (!transition.current) {
                 initiateTransition()
@@ -54,7 +53,6 @@ const Navigator = ({ children, childrenTransition = "slide", parent = "", accesa
         if (isNavigatorActive !== navigatorActive) {
             setNavigatorActive(isNavigatorActive);
         }
-
     }, [path]);
 
     if (accesable === false) {

@@ -27,19 +27,21 @@ class Slide implements ITransistion {
     }
 
     to = (path: string, transiton: boolean) => {
+      
         setTimeout(() => {
             if (path !== this.activePath) {
                 const paths = this.paths;
                 const position = paths[path].offsetLeft;
                 this.activePath = path;
-
-                if (!transiton) {
-                    for (const path in paths) {
-                        paths[path].classList.remove(styles.transition);
-                    }
-                }
                 for (const path in paths) {
-                    paths[path].style.left = paths[path].offsetLeft - position + "px";
+                  paths[path].classList.add(styles.transition);
+
+                  if (!transiton) {
+                    paths[path].classList.remove(styles.transition);  
+                  }
+                  
+                  
+                  paths[path].style.left = paths[path].offsetLeft - position + "px";
                 }
             }
             for (const path in this.paths) {
@@ -52,7 +54,8 @@ class Slide implements ITransistion {
         const paths = this.paths;
         const root = this.root;
         const navigatorViewportWidth = root?.clientWidth || 0;
-
+        console.log("startPosition " , navigatorViewportWidth, root?.clientWidth, transiton);
+        
         for (const path in paths) {
             if (!transiton) {
                 paths[path].classList.remove(styles.transition);

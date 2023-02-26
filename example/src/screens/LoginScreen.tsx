@@ -12,8 +12,6 @@ const LoginScreen = () => {
     return <div className="screen">
         <div className="title">Login</div>
         <div className="content">
-
-
             <input type="text" name="username" />
             <input type="password" name="password" />
             <button onClick={handleLogin}>LOGIN</button>
